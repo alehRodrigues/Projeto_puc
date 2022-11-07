@@ -1,0 +1,18 @@
+{
+    "name": "bttal/projeto_puc",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app"
+        },
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Alexandre Rodrigues",
+            "email": "btt.ale@gmail.com"
+        }
+    ],
+    "require": {}
+}
