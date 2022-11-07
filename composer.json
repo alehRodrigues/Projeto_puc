@@ -14,5 +14,7 @@
             "email": "btt.ale@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/var-dumper": "^6.1"
+    }
 }
