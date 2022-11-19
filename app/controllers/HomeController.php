@@ -1,10 +1,14 @@
 <?php
 namespace app\controllers;
 
-class HomeController{
+class HomeController extends BaseController{
 
     public function index(){
-        echo 'agora sim carai';
+        
+        $this->view('home', [
+            'title' => 'Home',
+            'name' => 'Alexandre'
+        ]);
     }
 
 }

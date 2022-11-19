@@ -17,7 +17,13 @@ class Routes{
                 '/items/delete/[0-9]+' => 'ItemController@delete',
                 '/items/detail/[0-9]+' => 'ItemController@detail',
             ],
-            'post' => []
+            'post' => [
+                '/signup' => 'LoginController@signup',
+                '/signin' => 'LoginController@signin',
+                '/items/create' => 'ItemController@create',
+                '/items/edit/[0-9]+' => 'ItemController@edit',
+                '/items/delete/[0-9]+' => 'ItemController@delete',
+            ]
         ];
     }
 
