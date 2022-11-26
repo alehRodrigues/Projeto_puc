@@ -22,12 +22,40 @@ abstract class Model
         $this->filters = $filters->dump();
     }
 
+    public function update(string $field, string|int $fieldValue, array $data)
+    {
+        try {
+            $connection = Connection::getConnection();
+            $sql = "UPDATE {$this->table} SET ";
+
+            foreach ($data as $key => $value) {
+                $sql .= "{$key} = :{$key}, ";
+            }
+
+            $sql = rtrim($sql, ', ');
+
+            $sql .= " WHERE {$field} = :{$field}";
+
+
+            $data[$field] = $fieldValue;
+
+            $stmt = $connection->prepare($sql);
+
+
+            $stmt->execute($data);
+
+            return $stmt->rowCount();
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
+
     public function fetchAll()
     {
-
         try {
 
             $sql = "SELECT {$this->fields} FROM {$this->table} {$this->filters}";
+
             $connection = Connection::getConnection();
             $query = $connection->query($sql);
             return $query->fetchAll(PDO::FETCH_CLASS, get_called_class());
@@ -52,6 +80,7 @@ abstract class Model
 
     public function create(array $data)
     {
+
         try {
             $fields = implode(',', array_keys($data));
             $values = ':' . implode(',:', array_keys($data));

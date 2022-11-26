@@ -17,11 +17,17 @@ class Usuario extends Model
 
     public function getDataCreate($postaData)
     {
-
-        return [
-            'usuarioNome' => $postaData['username'],
-            'usuarioEmail' => $postaData['email'],
-            'usuarioSenha' => password_hash($postaData['password'], PASSWORD_DEFAULT),
-        ];
+        if ($postaData['password'] != '') {
+            return [
+                'usuarioNome' => $postaData['username'],
+                'usuarioEmail' => $postaData['email'],
+                'usuarioSenha' => password_hash($postaData['password'], PASSWORD_DEFAULT),
+            ];
+        } else {
+            return [
+                'usuarioNome' => $postaData['username'],
+                'usuarioEmail' => $postaData['email'],
+            ];
+        }
     }
 }
