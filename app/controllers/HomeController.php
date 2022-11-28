@@ -40,27 +40,29 @@ class HomeController extends BaseController
     {
         try {
 
-            $emprestimos = new \app\models\Emprestimo();
-            $emprestimos = $emprestimos->fetchAll();
-
-            $emprestadosArray = array_filter($emprestimos, function ($emprestimo) {
-                return $emprestimo->EmprestimoAtivo == 1;
-            });
-
-            $emprestados = array_map(function ($emprestimo) {
-                return $emprestimo->EmprestimoItemId;
-            }, $emprestadosArray);
-
-
-
-            $items = new \app\models\Item();
-            $items = $items->fetchAllEmprestimo();
-
-            $items = array_filter($items, function ($item) use ($emprestados) {
-                return !in_array($item->ItemId, $emprestados);
-            });
-
             if (isset($_SESSION['user'])) {
+
+                $emprestimos = new \app\models\Emprestimo();
+                $emprestimos = $emprestimos->fetchAll();
+
+                $emprestadosArray = array_filter($emprestimos, function ($emprestimo) {
+                    return $emprestimo->EmprestimoAtivo == 1;
+                });
+
+                $emprestados = array_map(function ($emprestimo) {
+                    return $emprestimo->EmprestimoItemId;
+                }, $emprestadosArray);
+
+
+
+                $items = new \app\models\Item();
+                $items = $items->fetchAllEmprestimo();
+
+                $items = array_filter($items, function ($item) use ($emprestados) {
+                    return !in_array($item->ItemId, $emprestados);
+                });
+
+
                 $this->view('home', [
                     'title' => 'Home',
                     'emprestimos' => $emprestadosArray,
